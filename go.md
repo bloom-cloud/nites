@@ -70,7 +70,20 @@ func main() {
 	fmt.Println("Time")
 	fmt.Println(time.Now().Date())
 }
+```
+```
+package main
 
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	t := time.Now()
+	year, month, day := t.Date()
+	fmt.Println(year, month, day)
+}
 ```
 
 ----------
@@ -173,4 +186,4 @@ func main() {
 	println(numAsStr, num, err, numAsFloat, numAsBiggerInt, numAsSmallerInt)
 
 }
-```go
+```
