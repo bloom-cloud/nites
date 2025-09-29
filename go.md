@@ -147,3 +147,30 @@ var letter3 rune = '🦁'
 var text string = "Some text"
 
 ```
+
+### Conversion
+```go
+package main
+
+import (
+	"strconv"
+)
+
+func main() {
+	// String to number conversion
+	numAsStr := "522"
+	num, err := strconv.Atoi(numAsStr)
+
+	// int to float
+	numAsFloat := float32(num)
+
+	// int as bigger int
+	numAsBiggerInt := int64(num)
+
+	// int as smaller int - overflows until it gets to some number 
+	numAsSmallerInt := int8(num)
+
+	println(numAsStr, num, err, numAsFloat, numAsBiggerInt, numAsSmallerInt)
+
+}
+```go
