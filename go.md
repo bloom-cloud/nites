@@ -104,6 +104,9 @@ func main() {
 	println(text1)
 	println(text2)
 	println(text3)
+
+	// Constants dont change and dont require data type. Can only be primitive datatype
+	const pi = 3.14
 }
 
 ```
