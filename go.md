@@ -240,5 +240,50 @@ func main() {
 }
 ```
 
----
+# Reading terminal lines
+```
+package main
 
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+
+	// Read string input
+	fmt.Print("Enter line: ")
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		panic(err)
+	}
+	line = strings.TrimSpace(line)
+	fmt.Println("You entered:", line)
+
+	// Read numeric input
+	fmt.Print("Enter number: ")
+	numStr, err := reader.ReadString('\n')
+	if err != nil {
+		panic(err)
+	}
+	numStr = strings.TrimSpace(numStr)
+
+	// Convert to int
+	number, err := strconv.Atoi(numStr)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Number is %d\n", number)
+
+	// Convert to float
+	floatNum, err := strconv.ParseFloat(numStr, 64)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Float is %.2f\n", floatNum)
+}
+```
