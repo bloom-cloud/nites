@@ -366,3 +366,51 @@ func main() {
 	fmt.Println(`message contains "ss":`, ifContains)
 }
 ```
+
+# Loops
+```
+package main
+
+import (
+	"math/rand/v2"
+	"strconv"
+)
+
+func main() {
+	var condition = true
+	num := 0
+	for condition {
+		if num < 10 {
+			num++
+		} else {
+			condition = false
+		}
+		println(num)
+	}
+
+	// FOR LOOP BASIC
+	num = 0
+	for num < 10 {
+		num++
+		println("_" + strconv.Itoa(num))
+	}
+
+	// WHILE LOOP
+	gameIsRunning := true
+	for gameIsRunning {
+		ran := rand.IntN(100)
+		if ran < 10 {
+			gameIsRunning = false
+			break
+		}
+		println(ran)
+	}
+
+	// FOR LOOP WITH ITERATOR
+	for cnt := 0; cnt < 10; cnt++ {
+		println(cnt)
+	}
+
+}
+
+```
