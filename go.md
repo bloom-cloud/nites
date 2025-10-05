@@ -32,6 +32,40 @@ go run ./main.go
 go build ./main.go
 ```
 
+# Debugging
+```
+# install dlv
+dlv: command not found
+go install github.com/go-delve/delve/cmd/dlv@latest
+
+# go settings, typw launch
+{
+    "launch": {
+        
+
+        "configurations": [
+            {
+                "name": "Remote",
+                "type": "go",
+                "request": "attach",
+                "mode": "remote",
+                "remotePath": "${fileDirname}",
+                "port": 2345,
+                "host": "127.0.0.1",
+                "apiVersion": 2
+            }
+        ],
+        "compounds": []
+    }
+}
+
+# then in home folder
+nano .bashrc
+alias godebug="dlv debug --headless --listen=:2345 --log --api-version=2 --$@"
+```
+
+
+
 ---
 
 > Programming is not knowledge-based.
@@ -285,5 +319,50 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("Float is %.2f\n", floatNum)
+}
+```
+
+# Comparators
+```
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	var message = "String"
+	var age = 30
+	var x = 10
+
+	fmt.Println("Message:", message, "Age:", age)
+
+	// Numeric comparisons
+	var isGreater = age > x
+	var isEqual = age == x
+	var isLess = age < x
+
+	// String comparisons
+	var word1 = "Hello"
+	var word2 = "World"
+	var word3 = "Hello"
+
+	var strEqual = word1 == word3     // true
+	var strNotEqual = word1 != word2  // true
+	var strGreater = word1 > word2    // lexicographic comparison
+
+	// Check if substring exists
+	var ifContains = strings.Contains(message, "ss")
+
+	// Print results
+	fmt.Println("age > x:", isGreater)
+	fmt.Println("age == x:", isEqual)
+	fmt.Println("age < x:", isLess)
+
+	fmt.Println("word1 == word3:", strEqual)
+	fmt.Println("word1 != word2:", strNotEqual)
+	fmt.Println("word1 > word2:", strGreater)
+	fmt.Println(`message contains "ss":`, ifContains)
 }
 ```
