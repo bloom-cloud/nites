@@ -416,6 +416,7 @@ func main() {
 ```
 
 # Array and Slices
+Slices are views of the original slice. Reminder - append returns new copy of slice.
 ```
 package main
 
