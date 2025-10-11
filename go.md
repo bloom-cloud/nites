@@ -548,3 +548,39 @@ func spreadFunc(players ...string) {
 	}
 }
 ```
+
+# Pointers
+```
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	num := 10
+	fmt.Println(num)
+
+	numCopy := num
+	fmt.Println(numCopy)
+
+	var numPointer *int
+	numPointer = &num                    // assing the reference
+	fmt.Println(numPointer, *numPointer) // * to deconstruct the address into value
+
+	*numPointer = 11
+	fmt.Println(*numPointer, num) // 11 11 - original num changed
+
+	// pointers in functions
+	start := 10
+	end := 20
+	iteratePointer(&start, &end)
+}
+
+func iteratePointer(start *int, end *int) {
+	for *start < *end {
+		fmt.Println(*start)
+		(*start)++
+	}
+}
+```
