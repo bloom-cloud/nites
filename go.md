@@ -498,3 +498,53 @@ func main() {
 	}
 }
 ```
+
+# Functions
+```
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	voidFunc()
+	inputFunc("To", 30)
+	fmt.Println(singleReturn(333))
+
+	n, err := multipleReturn(10)
+	if err != nil {
+		fmt.Println(n)
+	}
+
+	spreadFunc("test 1", "test 2", "test 3")
+}
+
+func voidFunc() {
+	fmt.Println("Print message")
+}
+func inputFunc(name string, age int) {
+	fmt.Printf("Name %s, age %v\n", name, age)
+}
+func singleReturn(num int) int {
+	// sums digits
+	sum := 0
+	for num > 0 {
+		sum += num % 10
+		num = num / 10
+	}
+	return sum
+}
+func multipleReturn(num int) (int, error) {
+	if num > 0 {
+		return 0, errors.New("negative")
+	}
+	return 10, nil
+}
+func spreadFunc(players ...string) {
+	for _, p := range players {
+		fmt.Println(p)
+	}
+}
+```
