@@ -414,3 +414,87 @@ func main() {
 }
 
 ```
+
+# Array and Slices
+```
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// Arrays == Slices
+	zombies := []string{"Paul", "Gooe", "George"}
+	numbers := []int{1, 2, 3}
+	fmt.Println(zombies, numbers)
+
+	paul := zombies[0]
+	fmt.Println(paul)
+
+	zombies[1] = "Demetra"
+
+	for i := 0; i < len(zombies); i++ {
+		fmt.Println(zombies[i])
+	}
+
+	// for _, element := range numbers
+	for i, element := range numbers {
+		numbers[i] += 1
+		element += 1
+	}
+	fmt.Println(numbers)
+
+	// append
+	numbersCopy := append(numbers, 5, 9)
+	moreNumbers := []int{7, 8, 9}
+	spreadNumbers := append(numbersCopy, moreNumbers...)
+	fmt.Println(numbers, numbersCopy, spreadNumbers)
+
+	// subslices
+	slice := spreadNumbers[1:3]
+	sliceEnd := spreadNumbers[3:]
+	sliceStart := spreadNumbers[:3]
+	// chaning the original changes all slices
+	spreadNumbers[3] = 42
+
+	fmt.Println(slice, sliceEnd, sliceStart)
+
+	// remove
+	s := []int{10, 20, 30, 40, 50}
+	i := 2 // index of element to remove (30)
+	s = append(s[:i], s[i+1:]...)
+	fmt.Println(s)
+
+	// ARRAY - a slice with constant size. Elements can be modified
+	array1 := [2]string{"a", "b"}
+	array2 := [2]string{"a"} // will have empty string
+	fmt.Println(array1, array2)
+
+	// MAPS
+	playersH := map[string]int{
+		"p1": 10,
+		"p2": 20,
+		"p3": 30,
+	}
+	p1, ok := playersH["p1"]
+	if !ok {
+		panic("This")
+	}
+	fmt.Println(p1)
+
+	// add new element
+	playersH["new"] = 22
+	if _, ok = playersH["somekey"]; !ok {
+		playersH["somekey"] = 42
+	}
+
+	// delete element from a map
+	delete(playersH, "somekey")
+
+	// iterate map - order of elements isnt guaranteed
+	for key, value := range playersH {
+		fmt.Println(key, "->", value)
+	}
+}
+```
