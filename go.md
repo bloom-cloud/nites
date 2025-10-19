@@ -585,3 +585,45 @@ func iteratePointer(start *int, end *int) {
 	}
 }
 ```
+# Struct
+```
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+// can be struct and interface
+type Person struct {
+	name        string
+	age         int
+	dateOfBirth time.Time
+}
+
+func main() {
+	var p Person
+	p.name = "Tomas"
+	p.age = 25
+	p.dateOfBirth = time.Now()
+
+	p2 := Person{
+		name:        "Eli",
+		age:         22,
+		dateOfBirth: time.Now(),
+	}
+	fmt.Println(p, p2)
+
+	// struct and pointers
+	incAge(p)
+	incAgePtr(&p2)
+	fmt.Println(p, p2) // same 25, 23 is updated
+}
+
+func incAge(p Person) {
+	p.age++
+}
+func incAgePtr(p *Person) {
+	p.age++
+}
+```
