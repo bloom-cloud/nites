@@ -632,3 +632,85 @@ func incAgePtr(p *Person) {
 	p.age++
 }
 ```
+
+# Channels - example from Pong game
+Getting user input like this blocks thread so we need to create a new thread
+```
+func getUserInput() {
+	switch ev := SCREEN.PollEvent().(type) {
+	case *tcell.EventKey:
+		switch ev.Key() {
+		case tcell.KeyEscape:
+			SCREEN.Fini()
+			os.Exit(0)
+		case tcell.KeyUp:
+			player2.row--
+		case tcell.KeyDown:
+			player2.row++
+		default:
+			switch ev.Rune() {
+			case 'w':
+				player1.row--
+			case 's':
+				player1.row++
+			}
+		}
+	case *tcell.EventResize:
+		SCREEN.Sync()
+	}
+}
+```
+
+firt this blocking method is turned into a new thread
+```
+// background Process and send data using channel
+func initUserInput() chan string {
+	// but will use make for channels
+	inputChan := make(chan string)
+
+	// go func() {
+	// 	// anonimus function and invoke
+	// }()
+	go func() {
+		for {
+			switch ev := SCREEN.PollEvent().(type) {
+			case *tcell.EventKey:
+				inputChan <- ev.Name()
+			case *tcell.EventResize:
+				SCREEN.Sync()
+			}
+		}
+	}()
+	return inputChan
+}
+```
+
+its using make which can create a new variable
+```
+// make initializes new variables - same thing
+_ = make([]int, 0)
+_ := []int()
+```
+
+then when this thread is getting called we are using **select** which is like a **switch** statement but **all cases must be channels**
+```
+func main() {
+	chanInput := initUserInput()
+
+	var key string
+		select {
+		case key = <-chanInput:
+		default:
+			key = ""
+		}
+		switch key {
+		case "Rune[q]":
+			SCREEN.Fini()
+			os.Exit(0)
+		case "Rune[w]":
+			player1.row--
+		case "Rune[s]":
+			player1.row++
+		}
+```
+
