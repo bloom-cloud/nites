@@ -635,6 +635,8 @@ func incAgePtr(p *Person) {
 
 # Channels - example from Pong game
 Getting user input like this blocks thread so we need to create a new thread
+
+This is a blocking method
 ```
 func getUserInput() {
 	switch ev := SCREEN.PollEvent().(type) {
