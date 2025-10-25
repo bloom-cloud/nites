@@ -244,6 +244,11 @@ var letter3 rune = '🦁'
 
 var text string = "Some text"
 ```
+Unicode numbers and characters are offset
+```
+cnt := 0
+_ = rune(cnt + '0') // offset numbers cause ascii numbers and chars are offset
+```
 
 ---
 
